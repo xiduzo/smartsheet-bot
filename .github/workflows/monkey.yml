@@ -4,7 +4,6 @@ env:
   USERNAME: ${{ secrets.USERNAME }}
   PASSWORD: ${{ secrets.PASSWORD }}
   WEEKLY_HOURS: ${{ secrets.WEEKLY_HOURS }}
-  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 on:
   schedule:
@@ -38,5 +37,5 @@ jobs:
           SLACK_MESSAGE: "pipeline is ${{ job.status }}. <https://rm.smartsheet.com/me/tracker|Go to SmartSheet>"
           SLACK_TITLE: Monkey reporting
           SLACK_USERNAME: ":monkey_face:"
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           MSG_MINIMAL: true
