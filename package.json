@@ -1,0 +1,22 @@
+{
+  "name": "smartsheet-playwright",
+  "version": "1.0.0",
+  "description": "Do you also hate to fill in your pre-set hours manually? Stop being a monkey, start doing important work.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "keywords": [
+    "smartsheet",
+    "playwright",
+    "monkey"
+  ],
+  "author": "Xiduzo",
+  "license": "GNU GPL V3",
+  "devDependencies": {
+    "@playwright/test": "^1.31.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}

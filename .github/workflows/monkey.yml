@@ -1,0 +1,42 @@
+name: Fill in your smartsheet hours
+
+env:
+  USERNAME: ${{ secrets.USERNAME }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+  WEEKLY_HOURS: ${{ secrets.WEEKLY_HOURS }}
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+on:
+  schedule:
+    # Runs at 12:00 UTC on Friday
+    - cron: "* * 12 * * 5"
+
+jobs:
+  fill-in-hours:
+    name: Make monkey work
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Install playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run tests
+        run: npx playwright test
+  slack-notification:
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          # SLACK_CHANNEL: general
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_ICON: https://i.seadn.io/gae/SY_FqbJp0zeHl9QBU0gV0k1wRITZRgj-72R7X11rdzdWCd6zVtEtbNiAGnpQb-i7s3pV6Oo3zcDLsSdErSG9Ypm4JGhxvrkiBOFo?auto=format&w=48
+          SLACK_MESSAGE: "pipeline is ${{ job.status }}. <https://rm.smartsheet.com/me/tracker|Go to SmartSheet>"
+          SLACK_TITLE: Monkey reporting
+          SLACK_USERNAME: ":monkey_face:"
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          MSG_MINIMAL: true
