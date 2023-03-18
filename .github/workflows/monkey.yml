@@ -8,8 +8,8 @@ env:
 
 on:
   schedule:
-    # Runs at 12:00 UTC on Friday
-    - cron: "* * 12 * * 5"
+    # https://crontab.guru/
+    - cron: "0 12 * * 5"
 
 jobs:
   fill-in-hours:
