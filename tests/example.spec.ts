@@ -18,10 +18,10 @@ test("Monkey go brrrr", async ({ page }) => {
   await page.getByText("Time & Expenses").click();
   await page.waitForTimeout(1000); // Load data
 
-  const buttons = await page.getByRole("button", { name: /Confirm/ }).all();
-
+  const buttons = await page.getByText("confirm").all();
   for (const button of buttons) {
     await button.click();
+    await page.waitForTimeout(3000); // Smartsheet is slow af
   }
 
   const hours = await page.textContent(
@@ -31,5 +31,7 @@ test("Monkey go brrrr", async ({ page }) => {
   expect(hours).toContain(WEEKLY_HOURS);
 
   // Submit hours
-  await page.getByText("Submit for Approval", { exact: true }).click();
+  await page.getByText("Submit for Approval").click();
+
+  await page.waitForTimeout(3000); // Smartsheet is slow af
 });
