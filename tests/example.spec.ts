@@ -16,12 +16,12 @@ test("Monkey go brrrr", async ({ page }) => {
 
   // Goto time sheet
   await page.getByText("Time & Expenses").click();
-  await page.waitForTimeout(1000); // Load data
+  await page.waitForTimeout(5000); // Load data
 
   const buttons = await page.getByText("confirm").all();
   for (const button of buttons) {
     await button.click();
-    await page.waitForTimeout(3000); // Smartsheet is slow af
+    await page.waitForTimeout(10000); // Smartsheet is slow af
   }
 
   const hours = await page.textContent(
@@ -33,5 +33,5 @@ test("Monkey go brrrr", async ({ page }) => {
   // Submit hours
   await page.getByText("Submit for Approval").click();
 
-  await page.waitForTimeout(3000); // Smartsheet is slow af
+  await page.waitForTimeout(10000); // Smartsheet is slow af
 });
