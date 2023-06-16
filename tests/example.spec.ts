@@ -1,5 +1,7 @@
 import { test, expect } from "@playwright/test";
 
+const SMARTSHEET_WAIT_TIME = 10000; // Smartsheet is slow af
+
 test("Monkey go brrrr", async ({ page }) => {
   const { USERNAME, PASSWORD, WEEKLY_HOURS } = process.env;
 
@@ -16,12 +18,17 @@ test("Monkey go brrrr", async ({ page }) => {
 
   // Goto time sheet
   await page.getByText("Time & Expenses").click();
-  await page.waitForTimeout(5000); // Load data
+  await page.waitForTimeout(SMARTSHEET_WAIT_TIME);
 
-  const buttons = await page.getByText("confirm").all();
-  for (const button of buttons) {
-    await button.click();
-    await page.waitForTimeout(10000); // Smartsheet is slow af
+  const buttonSelector = 'button:text("confirm")';
+
+  while (await page.isVisible(buttonSelector)) {
+    const button = page.locator(buttonSelector);
+    console.log(button);
+    await page.locator(buttonSelector).click({
+      timeout: 2000,
+    });
+    await page.waitForTimeout(SMARTSHEET_WAIT_TIME);
   }
 
   const hours = await page.textContent(
@@ -30,8 +37,10 @@ test("Monkey go brrrr", async ({ page }) => {
 
   expect(hours).toContain(WEEKLY_HOURS);
 
-  // Submit hours
-  await page.getByText("Submit for Approval").click();
+  if (await page.isVisible("Submit for Approval")) {
+    // Submit hours
+    await page.getByText("Submit for Approval").click();
 
-  await page.waitForTimeout(10000); // Smartsheet is slow af
+    await page.waitForTimeout(SMARTSHEET_WAIT_TIME);
+  }
 });
