@@ -20,13 +20,11 @@ test("Monkey go brrrr", async ({ page }) => {
   await page.getByText("Time & Expenses").click();
   await page.waitForTimeout(SMARTSHEET_WAIT_TIME);
 
-  const buttonSelector = 'button:text("confirm")';
-
-  while (await page.isVisible(buttonSelector)) {
-    const button = page.locator(buttonSelector);
-    console.log(button);
-    await page.locator(buttonSelector).click({
-      timeout: 2000,
+  while (
+    await page.isVisible(".tk-confirmable .confirm-text:text('confirm')")
+  ) {
+    await page.click(".tk-confirmable .confirm-text", {
+      timeout: SMARTSHEET_WAIT_TIME,
     });
     await page.waitForTimeout(SMARTSHEET_WAIT_TIME);
   }
@@ -37,9 +35,9 @@ test("Monkey go brrrr", async ({ page }) => {
 
   expect(hours).toContain(WEEKLY_HOURS);
 
-  if (await page.isVisible("Submit for Approval")) {
+  if (await page.isVisible("button:text('Submit')")) {
     // Submit hours
-    await page.getByText("Submit for Approval").click();
+    await page.getByText("Submit").click();
 
     await page.waitForTimeout(SMARTSHEET_WAIT_TIME);
   }
