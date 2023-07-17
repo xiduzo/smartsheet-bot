@@ -14,7 +14,7 @@
   "author": "Xiduzo",
   "license": "GNU GPL V3",
   "devDependencies": {
-    "@playwright/test": "^1.35.1"
+    "@playwright/test": "^1.36.1"
   },
   "dependencies": {
     "dotenv": "^16.3.1"
