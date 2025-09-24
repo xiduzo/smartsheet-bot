@@ -1,6 +1,6 @@
 # Smartsheet bot
 
-Do you also hate to fill in your pre-set hours manually? Stop being a monkey, start doing important work.
+Do you also hate to fill in your pre-set hours manually? Stop being a copy-paste machine, start doing important work.
 
 ## What is this?
 
